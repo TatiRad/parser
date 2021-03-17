@@ -1,0 +1,15 @@
+#Написать программу, которая на основании запроса данных с
+# сайта http://www.cbr.ru/scripts/XML_daily.asp определит курс гонконского доллара к российскому рублю
+
+
+import urllib.request
+from bs4 import BeautifulSoup
+import lxml
+url = 'http://www.cbr.ru/scripts/XML_daily.asp'
+page = urllib.request.urlopen(url)
+data = page.read()
+soup = BeautifulSoup(data, "lxml")
+name = soup.find('valute', id='R01200')
+value = name.find('value')
+curs = value.getText()
+print(f"Десять гонконгских долларов равны {curs} рублей")
